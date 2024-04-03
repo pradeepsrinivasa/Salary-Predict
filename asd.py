@@ -15,15 +15,29 @@ from kivy.graphics import Rectangle
 class SalaryPredictionApp(App):
     def build(self):
         self.avg_salary_label = Label(text="Average Salary: ",bold=True,color=(1,.5,.7,1))
+        self.sname= Label(text="Student Name: ",bold=True,color=(1,.5,.7,1))
+        self.snames=Spinner(text="Student Name", values=["Pradeep","Lokesh","Vignesh","Dinesh"],background_color=(.5,1,1, .7),color=(1, 1, 1, 1))
+        self.company=Label(text="Company Name: ",bold=True,color=(1,.5,.7,1))
+        self.cname = Spinner(text="Company Name", values=["TCS","WIPRO","INFOSOES","MICROSOFT"],background_color=(.5,1,1, .7),color=(1, 1, 1, 1))
+        
         self.programming_language_label = Label(text="Programming Language: ",bold=True,color='red')
         self.programming_language_spinner = Spinner(text="Select Language", values=["C++","Java","JavaScript","Python"],background_color=(.5,1,1, .7),color=(1, 1, 1, 1))
         self.job_role_label = Label(text="Job Role: ",color="red")
         self.job_role_spinner = Spinner(text="Select Role", values=["Data Scientist","Dev Ops Engineer", "Product Manager", "Software Enigneer"],background_color=(.5,1,1, .7),color=(1, 1, 1, 1))
         self.predict_button = Button(text="Predict", on_press=self.predict_salary,background_color=(.5,1,1, .7),color=(1, 1, 1, 1),bold=True)
-        self.prediction_label = Label(text="Predicted Salary: ",color="blue",bold=True)
+        self.prediction_label = Label(text="Predicted Salary: ",color=(1,0,.5,1),bold=True)
  
         layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
         layout.add_widget(self.avg_salary_label)
+        layout.add_widget(self.sname)
+        layout.add_widget(self.snames)
+        layout.add_widget(self.company)
+        layout.add_widget(self.cname)
+        
+        
+        
+        
+        
         layout.add_widget(self.programming_language_label)
         layout.add_widget(self.programming_language_spinner)
         layout.add_widget(self.job_role_label)
@@ -52,6 +66,8 @@ class SalaryPredictionApp(App):
         # Add your salary prediction logic here
         user1=3
         user2=3
+        names=self.snames.text
+       
         selected_language = self.programming_language_spinner.text
         selected_role = self.job_role_spinner.text
         if selected_language=="C++":
@@ -76,7 +92,7 @@ class SalaryPredictionApp(App):
             df=np.round(sd/12,decimals=0)
             dg=df*1.5
 
-            self.prediction_label.text = f"Predicted Salary for {selected_language} {selected_role}:{df}-{dg}"
+            self.prediction_label.text = f"Predicted Salary for {names} in {selected_language} {selected_role}:{df}-{dg}"
 
 if __name__ == '__main__':
     SalaryPredictionApp().run()
